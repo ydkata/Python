@@ -1,0 +1,23 @@
+import pandas as pd
+# 表示行数の制限を変更
+pd.set_option("display.max_rows", 400)
+
+xlsFile = 'issues.xlsx'
+sheetName = 'issues'
+print ('Read the excelfile')
+xls_df = pd.read_excel(xlsFile, sheet_name=sheetName)
+#xls_df = xls_df.fillna('na')   # 欠損値を穴埋めする
+# 1行目のColumnsはHeader名になるぽい。
+#xls_df = xls_df[xls_df['対応者'].isin(['Kata'])]
+xls_df.head(5) 
+print(xls_df.columns)    # 1行目に書かれていたheaderを取得
+print(xls_df.index)    # 1列目に書かれていたindexを取得
+print(len(xls_df))    # 行数を取得 (headerは除く)
+print(xls_df.shape)    # 行数と列数を取得 (headerやindexは除く)
+print(xls_df.head(4))    # 先頭4行を表示
+
+################################################################
+
+# Groupby指定
+df_groupby = xls_df.groupby(['親チケット','作成者'] )
+df_groupby['#'].count()
